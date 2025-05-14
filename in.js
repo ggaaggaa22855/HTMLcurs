@@ -1,5 +1,103 @@
 // Инициализация редактора кода
 document.addEventListener('DOMContentLoaded', function() {
+    // ... (ваш существующий код инициализации)
+
+    // Инициализация системы фильтров противогаза
+    initGasMaskSystem();
+    
+    // ... (остальной ваш существующий код)
+});
+
+// Инициализация системы фильтров
+function initGasMaskSystem() {
+    const filterBar = document.querySelector('.filter-bar');
+    const replaceBtn = document.querySelector('.metro-btn');
+    const timer = document.querySelector('.timer');
+    
+    if (!filterBar || !replaceBtn || !timer) return;
+    
+    let filterStatus = 100;
+    let timeLeft = 5 * 60 + 23; // 5 минут 23 секунды
+    let degradationInterval;
+    
+    // Обновление интерфейса
+    function updateFilterDisplay() {
+        filterBar.style.width = `${filterStatus}%`;
+        
+        // Изменение цвета в зависимости от состояния
+        if (filterStatus > 50) {
+            filterBar.style.background = 'linear-gradient(to right, #00aa00, #ffcc00)';
+        } else if (filterStatus > 20) {
+            filterBar.style.background = 'linear-gradient(to right, #ffcc00, #ff6600)';
+        } else {
+            filterBar.style.background = 'linear-gradient(to right, #ff6600, #ff0000)';
+        }
+        
+        // Обновление таймера
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Критическое состояние
+        if (filterStatus < 30) {
+            timer.style.color = '#ff0000';
+            timer.style.textShadow = '0 0 5px rgba(255, 0, 0, 0.7)';
+        } else {
+            timer.style.color = '#ff5555';
+            timer.style.textShadow = 'none';
+        }
+    }
+    
+    // Процесс износа фильтров
+    function startDegradation() {
+        degradationInterval = setInterval(() => {
+            filterStatus = Math.max(0, filterStatus - (0.5 + Math.random()));
+            timeLeft = Math.max(0, timeLeft - 1);
+            updateFilterDisplay();
+            
+            if (filterStatus <= 0) {
+                clearInterval(degradationInterval);
+                replaceBtn.disabled = false;
+            }
+        }, 1000);
+    }
+    
+    // Замена фильтров
+    function replaceFilters() {
+        // Блокируем кнопку на время замены
+        replaceBtn.disabled = true;
+        replaceBtn.textContent = 'ЗАМЕНА...';
+        
+        // Эффект замены
+        const replaceEffect = setInterval(() => {
+            filterStatus = Math.min(100, filterStatus + 20);
+            updateFilterDisplay();
+            
+            if (filterStatus >= 100) {
+                clearInterval(replaceEffect);
+                timeLeft = 5 * 60 + 23;
+                
+                // Восстанавливаем кнопку
+                setTimeout(() => {
+                    replaceBtn.textContent = 'Заменить';
+                    replaceBtn.disabled = false;
+                    startDegradation();
+                }, 500);
+            }
+        }, 200);
+    }
+    
+    // Назначаем обработчик
+    replaceBtn.addEventListener('click', replaceFilters);
+    
+    // Первый запуск
+    updateFilterDisplay();
+    startDegradation();
+}
+
+// ... (остальные ваши существующие функции)
+// Инициализация редактора кода
+document.addEventListener('DOMContentLoaded', function() {
     // Переключение между вкладками HTML/CSS
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(button => {
