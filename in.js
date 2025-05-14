@@ -1,4 +1,3 @@
-
 // Инициализация редактора кода
 document.addEventListener('DOMContentLoaded', function() {
     // Переключение между вкладками HTML/CSS
@@ -75,7 +74,78 @@ function executeCode() {
     outputFrame.srcdoc = combinedCode;
 }
 
+// Симуляция износа фильтров противогаза
+function simulateFilterDegradation(filterElement) {
+    let width = 100;
+    const interval = setInterval(() => {
+        width -= Math.random() * 2;
+        filterElement.style.width = `${width}%`;
+        
+        // Изменение цвета в зависимости от состояния
+        if (width > 50) {
+            filterElement.style.background = 'linear-gradient(to right, #00aa00, #ffcc00)';
+        } else if (width > 20) {
+            filterElement.style.background = 'linear-gradient(to right, #ffcc00, #ff6600)';
+        } else {
+            filterElement.style.background = 'linear-gradient(to right, #ff6600, #ff0000)';
+        }
+        
+        if (width <= 0) {
+            clearInterval(interval);
+            filterElement.style.width = '0%';
+        }
+    }, 1000);
+}
 
+// Анимация загрузки станций
+function animateStationLoading() {
+    const sections = document.querySelectorAll('.metro-section');
+    sections.forEach((section, index) => {
+        // Задержка для последовательной анимации
+        setTimeout(() => {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+        }, 200 * index);
+    });
+    
+    // Анимация карточек
+    const cards = document.querySelectorAll('.metro-card, .concept-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+        }, 300 + (100 * index));
+    });
+}
 
+// Дополнительная функция для случайных событий в метро
+function randomMetroEvent() {
+    const events = [
+        "Тревога! Мутанты на подходе к станции.",
+        "Радио Полиса передает важное сообщение...",
+        "Замечено движение в тоннеле 3-B.",
+        "На поверхности зафиксирована радиационная буря.",
+        "Торговцы прибыли с новыми товарами."
+    ];
+    
+    const eventElement = document.createElement('div');
+    eventElement.className = 'metro-event-notification';
+    eventElement.textContent = events[Math.floor(Math.random() * events.length)];
+    
+    document.body.appendChild(eventElement);
+    
+    // Анимация появления и исчезновения
+    setTimeout(() => {
+        eventElement.style.opacity = '1';
+        eventElement.style.bottom = '20px';
+    }, 100);
+    
+    setTimeout(() => {
+        eventElement.style.opacity = '0';
+        eventElement.style.bottom = '-50px';
+        setTimeout(() => eventElement.remove(), 500);
+    }, 3000);
+}
 
-
+// Запускаем случайные события каждые 15-30 секунд
+setInterval(randomMetroEvent, 15000 + Math.random() * 15000);
