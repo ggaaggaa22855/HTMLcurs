@@ -1,30 +1,31 @@
-// Инициализация редактора кода
-document.addEventListener('DOMContentLoaded', function() {
-    // ... (ваш существующий код инициализации)
-
-    // Инициализация системы фильтров противогаза
-    initGasMaskSystem();
-    
-    // ... (остальной ваш существующий код)
-});
-
-// Инициализация системы фильтров
+// Удалите старую функцию simulateFilterDegradation и замените её этой реализацией
 function initGasMaskSystem() {
     const filterBar = document.querySelector('.filter-bar');
-    const replaceBtn = document.querySelector('.metro-btn');
+    const replaceBtn = document.querySelector('.gas-mask-ui .metro-btn');
     const timer = document.querySelector('.timer');
     
     if (!filterBar || !replaceBtn || !timer) return;
     
-    let filterStatus = 100;
-    let timeLeft = 5 * 60 + 23; // 5 минут 23 секунды
-    let degradationInterval;
+    // Настройки системы
+    const config = {
+        maxFilter: 100,          // Максимальный уровень фильтра
+        minFilter: 0,            // Минимальный уровень
+        degradeSpeed: 0.7,       // Скорость износа (меньше = медленнее)
+        timeTotal: 5 * 60 + 23,  // 5 минут 23 секунды
+        replaceTime: 2000        // Время замены в мс
+    };
     
-    // Обновление интерфейса
-    function updateFilterDisplay() {
+    let filterStatus = config.maxFilter;
+    let timeLeft = config.timeTotal;
+    let degradeInterval;
+    let isReplacing = false;
+    
+    // Обновление визуального состояния
+    function updateDisplay() {
+        // Плавное обновление полосы
         filterBar.style.width = `${filterStatus}%`;
         
-        // Изменение цвета в зависимости от состояния
+        // Цветовая индикация
         if (filterStatus > 50) {
             filterBar.style.background = 'linear-gradient(to right, #00aa00, #ffcc00)';
         } else if (filterStatus > 20) {
@@ -34,67 +35,73 @@ function initGasMaskSystem() {
         }
         
         // Обновление таймера
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const secs = (timeLeft % 60).toString().padStart(2, '0');
+        timer.textContent = `${mins}:${secs}`;
         
         // Критическое состояние
-        if (filterStatus < 30) {
-            timer.style.color = '#ff0000';
-            timer.style.textShadow = '0 0 5px rgba(255, 0, 0, 0.7)';
-        } else {
-            timer.style.color = '#ff5555';
-            timer.style.textShadow = 'none';
-        }
+        timer.style.color = filterStatus < 30 ? '#ff0000' : '#ff5555';
+        timer.style.textShadow = filterStatus < 30 ? '0 0 5px rgba(255, 0, 0, 0.7)' : 'none';
     }
     
-    // Процесс износа фильтров
+    // Процесс износа
     function startDegradation() {
-        degradationInterval = setInterval(() => {
-            filterStatus = Math.max(0, filterStatus - (0.5 + Math.random()));
-            timeLeft = Math.max(0, timeLeft - 1);
-            updateFilterDisplay();
+        clearInterval(degradeInterval);
+        
+        degradeInterval = setInterval(() => {
+            if (isReplacing) return;
             
-            if (filterStatus <= 0) {
-                clearInterval(degradationInterval);
-                replaceBtn.disabled = false;
+            // Плавный износ
+            filterStatus = Math.max(config.minFilter, filterStatus - config.degradeSpeed);
+            timeLeft = Math.max(0, timeLeft - 1);
+            
+            updateDisplay();
+            
+            if (filterStatus <= config.minFilter) {
+                clearInterval(degradeInterval);
             }
         }, 1000);
     }
     
     // Замена фильтров
     function replaceFilters() {
-        // Блокируем кнопку на время замены
+        if (isReplacing) return;
+        
+        isReplacing = true;
         replaceBtn.disabled = true;
+        const originalText = replaceBtn.textContent;
         replaceBtn.textContent = 'ЗАМЕНА...';
         
-        // Эффект замены
-        const replaceEffect = setInterval(() => {
-            filterStatus = Math.min(100, filterStatus + 20);
-            updateFilterDisplay();
+        // Анимация замены
+        const replaceInterval = setInterval(() => {
+            filterStatus = Math.min(config.maxFilter, filterStatus + 10);
+            updateDisplay();
             
-            if (filterStatus >= 100) {
-                clearInterval(replaceEffect);
-                timeLeft = 5 * 60 + 23;
+            if (filterStatus >= config.maxFilter) {
+                clearInterval(replaceInterval);
+                timeLeft = config.timeTotal;
                 
-                // Восстанавливаем кнопку
                 setTimeout(() => {
-                    replaceBtn.textContent = 'Заменить';
+                    replaceBtn.textContent = originalText;
                     replaceBtn.disabled = false;
+                    isReplacing = false;
                     startDegradation();
                 }, 500);
             }
-        }, 200);
+        }, config.replaceTime / 10);
     }
     
-    // Назначаем обработчик
+    // Инициализация
     replaceBtn.addEventListener('click', replaceFilters);
-    
-    // Первый запуск
-    updateFilterDisplay();
+    updateDisplay();
     startDegradation();
 }
 
+// В DOMContentLoaded оставьте только вызов initGasMaskSystem()
+document.addEventListener('DOMContentLoaded', function() {
+    initGasMaskSystem();
+    // ... остальная инициализация
+});
 // ... (остальные ваши существующие функции)
 // Инициализация редактора кода
 document.addEventListener('DOMContentLoaded', function() {
