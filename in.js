@@ -179,28 +179,6 @@ function executeCode() {
     outputFrame.srcdoc = combinedCode;
 }
 
-// Симуляция износа фильтров противогаза
-function simulateFilterDegradation(filterElement) {
-    let width = 100;
-    const interval = setInterval(() => {
-        width -= Math.random() * 2;
-        filterElement.style.width = `${width}%`;
-        
-        // Изменение цвета в зависимости от состояния
-        if (width > 50) {
-            filterElement.style.background = 'linear-gradient(to right, #00aa00, #ffcc00)';
-        } else if (width > 20) {
-            filterElement.style.background = 'linear-gradient(to right, #ffcc00, #ff6600)';
-        } else {
-            filterElement.style.background = 'linear-gradient(to right, #ff6600, #ff0000)';
-        }
-        
-        if (width <= 0) {
-            clearInterval(interval);
-            filterElement.style.width = '0%';
-        }
-    }, 1000);
-}
 
 // Анимация загрузки станций
 function animateStationLoading() {
