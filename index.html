@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML/CSS в мире Metro</title>
     <link rel="stylesheet" href="style.css">
+       <script src="in.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <header class="metro-header">
         <div class="header-content">
-            <div class="logo">🚇</div>
+            <img src="maxresdefault.jpg" alt="Metro Logo" class="logo">
             <h1>HTML/CSS в постапокалиптическом метро</h1>
             <p class="tagline">Изучайте веб-разработку в атмосфере вселенной Metro</p>
         </div>
@@ -29,7 +30,7 @@
         <section id="html-basics" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">🚇</span> Основы HTML</h2>
-                <div class="section-image">🚇</div>
+                <img src="1551722065_poster-19-03-04 22-52-53.jpg" alt="Тоннель метро" class="section-image">
             </div>
             
             <article class="metro-article">
@@ -79,7 +80,7 @@
         <section id="css-basics" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">🔦</span> Основы CSS</h2>
-                <div class="section-image">🔦</div>
+                <img src="images/surface.jpg" alt="Поверхность" class="section-image">
             </div>
             
             <article class="metro-article">
@@ -138,7 +139,7 @@ body {
         <section id="examples" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">💻</span> Примеры кода</h2>
-                <div class="section-image">💻</div>
+                <img src="images/station.jpg" alt="Станция метро" class="section-image">
             </div>
             
             <article class="metro-article">
@@ -153,11 +154,11 @@ body {
     &lt;div class="mask-display"&gt;
         &lt;div class="filter-status"&gt;
             &lt;span class="filter-text"&gt;ФИЛЬТРЫ:&lt;/span&gt;
-            &lt;div class="filter-bar" id="filterBar"&gt;&lt;/div&gt;
+            &lt;div class="filter-bar"&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;div class="timer" id="filterTimer"&gt;05:23&lt;/div&gt;
+        &lt;div class="timer"&gt;05:23&lt;/div&gt;
     &lt;/div&gt;
-    &lt;button class="metro-btn" id="replaceFilter"&gt;Заменить&lt;/button&gt;
+    &lt;button class="metro-btn"&gt;Заменить&lt;/button&gt;
 &lt;/div&gt;
                         </code></pre>
                     </div>
@@ -183,15 +184,12 @@ body {
     background: linear-gradient(to right, #00aa00, #ff0000);
     margin-top: 5px;
     border: 1px solid #333;
-    width: 100%;
-    transition: width 0.5s ease, background 0.5s ease;
 }
 
 .timer {
     font-size: 24px;
     text-align: center;
     margin: 10px 0;
-    color: #00ff00;
 }
 
 .metro-btn {
@@ -201,11 +199,6 @@ body {
     padding: 8px 15px;
     width: 100%;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.metro-btn:hover {
-    background: #444;
 }
                         </code></pre>
                     </div>
@@ -216,203 +209,11 @@ body {
                             <div class="mask-display">
                                 <div class="filter-status">
                                     <span class="filter-text">ФИЛЬТРЫ:</span>
-                                    <div class="filter-bar" id="filterBarDemo"></div>
+                                    <div class="filter-bar"></div>
                                 </div>
-                                <div class="timer" id="filterTimerDemo">05:23</div>
+                                <div class="timer">05:23</div>
                             </div>
-                            <button class="metro-btn" id="replaceFilterDemo">Заменить фильтр</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="additional-examples">
-                    <h3>Дополнительные примеры кода</h3>
-                    
-                    <div class="example-tabs">
-                        <div class="example-tab active" data-example="example1">Навигация станции</div>
-                        <div class="example-tab" data-example="example2">Инвентарь сталкера</div>
-                        <div class="example-tab" data-example="example3">Карта метро</div>
-                    </div>
-                    
-                    <div class="example-content active" id="example1">
-                        <div class="code-block">
-                            <h4>HTML навигации:</h4>
-                            <pre><code>
-&lt;nav class="station-nav"&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a href="#police"&gt;Полис&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#market"&gt;Рынок&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#armory"&gt;Оружейная&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#hospital"&gt;Госпиталь&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/nav&gt;
-                            </code></pre>
-                        </div>
-                        
-                        <div class="code-block">
-                            <h4>CSS навигации:</h4>
-                            <pre><code>
-.station-nav {
-    background: #222;
-    border: 1px solid #444;
-    padding: 10px;
-}
-
-.station-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-}
-
-.station-nav a {
-    color: #cc9900;
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    transition: all 0.3s;
-}
-
-.station-nav a:hover {
-    border-color: #cc9900;
-    background: rgba(204, 153, 0, 0.1);
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                    
-                    <div class="example-content" id="example2">
-                        <div class="code-block">
-                            <h4>HTML инвентаря:</h4>
-                            <pre><code>
-&lt;div class="inventory"&gt;
-    &lt;h3&gt;Инвентарь сталкера&lt;/h3&gt;
-    &lt;div class="inventory-grid"&gt;
-        &lt;div class="inventory-item"&gt;
-            &lt;span class="item-icon"&gt;🔫&lt;/span&gt;
-            &lt;span class="item-name"&gt;АКС-74У&lt;/span&gt;
-            &lt;span class="item-ammo"&gt;120/360&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div class="inventory-item"&gt;
-            &lt;span class="item-icon"&gt;💊&lt;/span&gt;
-            &lt;span class="item-name"&gt;Аптечка&lt;/span&gt;
-            &lt;span class="item-count"&gt;x3&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-                            </code></pre>
-                        </div>
-                        
-                        <div class="code-block">
-                            <h4>CSS инвентаря:</h4>
-                            <pre><code>
-.inventory {
-    background: #1a1a1a;
-    border: 2px solid #444;
-    padding: 15px;
-    width: 250px;
-}
-
-.inventory-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.inventory-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    border-bottom: 1px solid #333;
-}
-
-.item-icon {
-    font-size: 1.5rem;
-}
-
-.item-name {
-    flex-grow: 1;
-    margin-left: 10px;
-}
-
-.item-ammo, .item-count {
-    color: #cc9900;
-    font-weight: bold;
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                    
-                    <div class="example-content" id="example3">
-                        <div class="code-block">
-                            <h4>HTML карты метро:</h4>
-                            <pre><code>
-&lt;div class="metro-map"&gt;
-    &lt;div class="map-line line-red"&gt;
-        &lt;div class="station"&gt;Сокольники&lt;/div&gt;
-        &lt;div class="station active"&gt;Полис&lt;/div&gt;
-        &lt;div class="station"&gt;Выставка&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="map-line line-blue"&gt;
-        &lt;div class="station"&gt;Рижская&lt;/div&gt;
-        &lt;div class="station"&gt;Курская&lt;/div&gt;
-        &lt;div class="station"&gt;Таганская&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-                            </code></pre>
-                        </div>
-                        
-                        <div class="code-block">
-                            <h4>CSS карты метро:</h4>
-                            <pre><code>
-.metro-map {
-    background: #111;
-    padding: 20px;
-    border: 1px solid #333;
-}
-
-.map-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-.map-line::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: currentColor;
-    z-index: 1;
-}
-
-.station {
-    background: #222;
-    border: 2px solid #444;
-    padding: 10px;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.station.active {
-    border-color: #cc9900;
-    background: #332200;
-}
-
-.line-red { color: #cc0000; }
-.line-blue { color: #0066cc; }
-                            </code></pre>
+                            <button class="metro-btn">Заменить</button>
                         </div>
                     </div>
                 </div>
@@ -422,7 +223,7 @@ body {
         <section id="practice" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">⚡</span> Практика в тоннелях</h2>
-                <div class="section-image">⚡</div>
+                <img src="tema.jpg" alt="Артём" class="section-image">
             </div>
             
             <article class="metro-article">
@@ -430,31 +231,22 @@ body {
                 <p>Как Артём учился выживать, так и вы будете учиться создавать веб-страницы.</p>
                 
                 <div class="practice-area">
-                    <div class="editor-container">
-                        <div class="editor-panel">
-                            <div class="editor-header">
-                                <h4>HTML редактор</h4>
-                                <div class="editor-actions">
-                                    <button class="editor-action-btn" id="clear-html">Очистить</button>
-                                    <button class="editor-action-btn" id="html-example">Пример</button>
-                                </div>
-                            </div>
-                            <textarea class="code-editor" id="html-editor" placeholder="Введите HTML код здесь...">&lt;div class="metro-terminal"&gt;
+                    <div class="editor-tabs">
+                        <button class="tab-btn active" data-tab="html-tab">HTML</button>
+                        <button class="tab-btn" data-tab="css-tab">CSS</button>
+                    </div>
+                    
+                    <div class="editor-content">
+                        <div id="html-tab" class="tab-pane active">
+                            <textarea class="code-editor" placeholder="Введите HTML код здесь...">&lt;div class="metro-terminal"&gt;
     &lt;h3&gt;Терминал Полиса&lt;/h3&gt;
     &lt;p&gt;Добро пожаловать в систему метро!&lt;/p&gt;
     &lt;button class="metro-btn"&gt;Войти&lt;/button&gt;
 &lt;/div&gt;</textarea>
                         </div>
                         
-                        <div class="editor-panel">
-                            <div class="editor-header">
-                                <h4>CSS редактор</h4>
-                                <div class="editor-actions">
-                                    <button class="editor-action-btn" id="clear-css">Очистить</button>
-                                    <button class="editor-action-btn" id="css-example">Пример</button>
-                                </div>
-                            </div>
-                            <textarea class="code-editor" id="css-editor" placeholder="Введите CSS код здесь...">.metro-terminal {
+                        <div id="css-tab" class="tab-pane">
+                            <textarea class="code-editor" placeholder="Введите CSS код здесь...">.metro-terminal {
     width: 300px;
     background: #222;
     border: 1px solid #444;
@@ -485,4 +277,25 @@ body {
                     <div class="output-frame">
                         <h4>Результат:</h4>
                         <iframe id="code-output"></iframe>
-                    </
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="metro-footer">
+        <p>© 2023 Станция "Веб-Разработчик". Все права защищены.</p>
+        <p>Создано с ❤️ для выживших в цифровом метро</p>
+        <div class="footer-links">
+            <a href="#">Карта метро</a>
+            <a href="#">Радио Полиса</a>
+            <a href="#">Архив сталкеров</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
