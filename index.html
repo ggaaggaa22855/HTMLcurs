@@ -4,39 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML/CSS в мире Metro</title>
-    <style>
-        /* Базовые стили для демонстрации */
-        body {
-            background-color: #1a1a1a;
-            color: #e6e6e6;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .metro-header {
-            background: #2a2a2a;
-            padding: 20px;
-            border-bottom: 3px solid #cc9900;
-        }
-        
-        .metro-section {
-            padding: 40px 20px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .code-block {
-            background: #000;
-            padding: 15px;
-            border-left: 4px solid #cc9900;
-            margin: 20px 0;
-        }
-        
-        pre {
-            color: #00cc00;
-            overflow-x: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+       <script src="in.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -107,7 +76,6 @@
             </article>
         </section>
 
-        <!-- Остальные секции остаются без изменений -->
         <section id="css-basics" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">🔦</span> Основы CSS</h2>
@@ -145,13 +113,185 @@ body {
 }
                     </code></pre>
                 </div>
+                
+                <h3>Основные концепции CSS</h3>
+                <div class="metro-cards">
+                    <div class="concept-card">
+                        <div class="concept-icon">🎨</div>
+                        <h4>Селекторы</h4>
+                        <p>Как выбор оружия - определяют какие элементы будут стилизованы</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">🛠️</div>
+                        <h4>Свойства</h4>
+                        <p>Как инструменты сталкера - изменяют внешний вид элементов</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">📊</div>
+                        <h4>Значения</h4>
+                        <p>Как настройки оружия - определяют конкретные параметры стилей</p>
+                    </div>
+                </div>
             </article>
         </section>
 
-        <footer class="metro-footer">
-            <p>© 2023 Станция "Веб-Разработчик". Все права защищены.</p>
-            <p>Создано с ❤️ для выживших в цифровом метро</p>
-        </footer>
+        <section id="examples" class="metro-section">
+            <div class="section-header">
+                <h2><span class="section-icon">💻</span> Примеры кода</h2>
+                <img src="images/station.jpg" alt="Станция метро" class="section-image">
+            </div>
+            
+            <article class="metro-article">
+                <h3>Интерфейс выживания</h3>
+                <p>Создадим интерфейс счетчика фильтров противогаза в стиле Metro</p>
+                
+                <div class="example-container">
+                    <div class="code-example">
+                        <h4>HTML:</h4>
+                        <pre><code>
+&lt;div class="gas-mask-ui"&gt;
+    &lt;div class="mask-display"&gt;
+        &lt;div class="filter-status"&gt;
+            &lt;span class="filter-text"&gt;ФИЛЬТРЫ:&lt;/span&gt;
+            &lt;div class="filter-bar"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="timer"&gt;05:23&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="metro-btn"&gt;Заменить&lt;/button&gt;
+&lt;/div&gt;
+                        </code></pre>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>CSS:</h4>
+                        <pre><code>
+.gas-mask-ui {
+    width: 300px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 2px solid #555;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+}
+
+.filter-status {
+    margin-bottom: 10px;
+}
+
+.filter-bar {
+    height: 20px;
+    background: linear-gradient(to right, #00aa00, #ff0000);
+    margin-top: 5px;
+    border: 1px solid #333;
+}
+
+.timer {
+    font-size: 24px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.metro-btn {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 8px 15px;
+    width: 100%;
+    cursor: pointer;
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="example-output">
+                        <h4>Результат:</h4>
+                        <div class="gas-mask-ui">
+                            <div class="mask-display">
+                                <div class="filter-status">
+                                    <span class="filter-text">ФИЛЬТРЫ:</span>
+                                    <div class="filter-bar"></div>
+                                </div>
+                                <div class="timer">05:23</div>
+                            </div>
+                            <button class="metro-btn">Заменить</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="practice" class="metro-section">
+            <div class="section-header">
+                <h2><span class="section-icon">⚡</span> Практика в тоннелях</h2>
+                <img src="tema.jpg" alt="Артём" class="section-image">
+            </div>
+            
+            <article class="metro-article">
+                <h3>Тренировочный полигон</h3>
+                <p>Как Артём учился выживать, так и вы будете учиться создавать веб-страницы.</p>
+                
+                <div class="practice-area">
+                    <div class="editor-tabs">
+                        <button class="tab-btn active" data-tab="html-tab">HTML</button>
+                        <button class="tab-btn" data-tab="css-tab">CSS</button>
+                    </div>
+                    
+                    <div class="editor-content">
+                        <div id="html-tab" class="tab-pane active">
+                            <textarea class="code-editor" placeholder="Введите HTML код здесь...">&lt;div class="metro-terminal"&gt;
+    &lt;h3&gt;Терминал Полиса&lt;/h3&gt;
+    &lt;p&gt;Добро пожаловать в систему метро!&lt;/p&gt;
+    &lt;button class="metro-btn"&gt;Войти&lt;/button&gt;
+&lt;/div&gt;</textarea>
+                        </div>
+                        
+                        <div id="css-tab" class="tab-pane">
+                            <textarea class="code-editor" placeholder="Введите CSS код здесь...">.metro-terminal {
+    width: 300px;
+    background: #222;
+    border: 1px solid #444;
+    padding: 20px;
+    color: #e6e6e6;
+    font-family: 'Roboto', sans-serif;
+}
+
+.metro-terminal h3 {
+    color: #cc9900;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.metro-btn {
+    background: #cc9900;
+    color: #222;
+    border: none;
+    padding: 8px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+}</textarea>
+                        </div>
+                    </div>
+                    
+                    <button id="run-code" class="metro-run-btn">Запустить код</button>
+                    
+                    <div class="output-frame">
+                        <h4>Результат:</h4>
+                        <iframe id="code-output"></iframe>
+                    </div>
+                </div>
+            </article>
+        </section>
     </main>
+
+    <footer class="metro-footer">
+        <p>© 2023 Станция "Веб-Разработчик". Все права защищены.</p>
+        <p>Создано с ❤️ для выживших в цифровом метро</p>
+        <div class="footer-links">
+            <a href="#">Карта метро</a>
+            <a href="#">Радио Полиса</a>
+            <a href="#">Архив сталкеров</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
