@@ -23,11 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         runButton.addEventListener('click', executeCode);
     }
     
-    // Имитация работы счетчика фильтров противогаза
-    const filterBar = document.querySelector('.filter-bar');
-    if (filterBar) {
-        simulateFilterDegradation(filterBar);
-    }
+    // Инициализация системы фильтров противогаза
+    initGasMaskSystem();
     
     // Добавляем интерактивность кнопкам в стиле Metro
     const metroButtons = document.querySelectorAll('.metro-btn, .metro-run-btn');
@@ -74,27 +71,151 @@ function executeCode() {
     outputFrame.srcdoc = combinedCode;
 }
 
-// Симуляция износа фильтров противогаза
-function simulateFilterDegradation(filterElement) {
-    let width = 100;
-    const interval = setInterval(() => {
-        width -= Math.random() * 2;
-        filterElement.style.width = `${width}%`;
+// СИСТЕМА ФИЛЬТРОВ ПРОТИВОГАЗА - РАБОЧАЯ ВЕРСИЯ
+function initGasMaskSystem() {
+    console.log('Инициализация системы фильтров...');
+    
+    // Находим элементы в секции examples
+    const filterBar = document.querySelector('#examples .filter-bar');
+    const replaceBtn = document.querySelector('#examples .metro-btn');
+    const timer = document.querySelector('#examples .timer');
+    
+    console.log('Найдены элементы:', { 
+        filterBar: !!filterBar, 
+        replaceBtn: !!replaceBtn, 
+        timer: !!timer 
+    });
+    
+    if (!filterBar || !replaceBtn || !timer) {
+        console.error('Не все элементы системы фильтров найдены!');
+        return;
+    }
+
+    // Настройки
+    const config = {
+        maxFilter: 100,
+        minFilter: 0,
+        degradeSpeed: 0.8,
+        timeTotal: 5 * 60 + 23,
+        replaceTime: 2000
+    };
+    
+    let filterStatus = config.maxFilter;
+    let timeLeft = config.timeTotal;
+    let degradeInterval;
+    let isReplacing = false;
+
+    // Обновление дисплея
+    function updateDisplay() {
+        filterBar.style.width = `${filterStatus}%`;
         
-        // Изменение цвета в зависимости от состояния
-        if (width > 50) {
-            filterElement.style.background = 'linear-gradient(to right, #00aa00, #ffcc00)';
-        } else if (width > 20) {
-            filterElement.style.background = 'linear-gradient(to right, #ffcc00, #ff6600)';
+        // Цветовая индикация
+        if (filterStatus > 50) {
+            filterBar.style.background = 'linear-gradient(to right, #00aa00, #00cc00)';
+        } else if (filterStatus > 20) {
+            filterBar.style.background = 'linear-gradient(to right, #ffcc00, #ff9900)';
         } else {
-            filterElement.style.background = 'linear-gradient(to right, #ff6600, #ff0000)';
+            filterBar.style.background = 'linear-gradient(to right, #ff6600, #ff0000)';
         }
         
-        if (width <= 0) {
-            clearInterval(interval);
-            filterElement.style.width = '0%';
+        // Таймер
+        const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const secs = (timeLeft % 60).toString().padStart(2, '0');
+        timer.textContent = `${mins}:${secs}`;
+        
+        // Визуальные эффекты при критическом состоянии
+        if (filterStatus < 30) {
+            timer.style.color = '#ff0000';
+            timer.style.fontWeight = 'bold';
+            timer.style.textShadow = '0 0 10px rgba(255, 0, 0, 0.7)';
+        } else {
+            timer.style.color = '#ff5555';
+            timer.style.fontWeight = 'normal';
+            timer.style.textShadow = 'none';
         }
-    }, 1000);
+    }
+
+    // Износ фильтров
+    function startDegradation() {
+        clearInterval(degradeInterval);
+        
+        degradeInterval = setInterval(() => {
+            if (isReplacing) return;
+            
+            filterStatus = Math.max(config.minFilter, filterStatus - config.degradeSpeed);
+            timeLeft = Math.max(0, timeLeft - 1);
+            
+            updateDisplay();
+            
+            // Автоматическая остановка при полном износе
+            if (filterStatus <= config.minFilter) {
+                clearInterval(degradeInterval);
+                console.log('Фильтры полностью изношены!');
+            }
+        }, 1000);
+    }
+
+    // Замена фильтров
+    function replaceFilters() {
+        if (isReplacing) {
+            console.log('Замена уже идет...');
+            return;
+        }
+        
+        console.log('Начало замены фильтров...');
+        isReplacing = true;
+        replaceBtn.disabled = true;
+        const originalText = replaceBtn.textContent;
+        
+        // Визуальная обратная связь
+        replaceBtn.textContent = 'ЗАМЕНА...';
+        replaceBtn.style.background = '#555';
+        
+        // Останавливаем износ
+        clearInterval(degradeInterval);
+        
+        // Анимация замены - быстрый рост
+        let replaceProgress = filterStatus;
+        const replaceStep = (config.maxFilter - filterStatus) / 10;
+        
+        const replaceAnimation = setInterval(() => {
+            replaceProgress += replaceStep;
+            filterStatus = Math.min(config.maxFilter, replaceProgress);
+            
+            updateDisplay();
+            
+            if (filterStatus >= config.maxFilter) {
+                clearInterval(replaceAnimation);
+                
+                // Завершение замены
+                timeLeft = config.timeTotal;
+                filterStatus = config.maxFilter;
+                
+                setTimeout(() => {
+                    replaceBtn.textContent = originalText;
+                    replaceBtn.disabled = false;
+                    replaceBtn.style.background = '';
+                    isReplacing = false;
+                    
+                    // Перезапускаем износ
+                    startDegradation();
+                    console.log('Фильтры заменены!');
+                }, 500);
+            }
+        }, 100);
+    }
+
+    // Назначаем обработчик клика
+    replaceBtn.addEventListener('click', replaceFilters);
+    
+    // Добавляем стили для плавности
+    filterBar.style.transition = 'width 0.5s ease, background 0.5s ease';
+    
+    // Инициализация
+    updateDisplay();
+    startDegradation();
+    
+    console.log('Система фильтров инициализирована успешно!');
 }
 
 // Анимация загрузки станций
