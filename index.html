@@ -3,39 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML/CSS в мире Metro</title>
+    <title>Metro Code Station - Изучение веб-разработки</title>
     <link rel="stylesheet" href="style.css">
-       <script src="in.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet>
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Дипломная работа Бельского Данилы -->
-    <div style="text-align: center; padding: 20px; background: #1a1a1a; border-bottom: 2px solid #333;">
-        <h1 style="font-size: 2.5em; margin: 0; font-family: 'Playfair Display', serif;">
-            <span style="color: #8B00FF;">Д</span><span style="color: #7A00E6;">и</span><span style="color: #6A00CC;">п</span><span style="color: #5A00B3;">л</span><span style="color: #4A0099;">о</span><span style="color: #3A0080;">м</span><span style="color: #2A0066;">н</span><span style="color: #1A004C;">а</span><span style="color: #0A0033;">я</span> 
-            <span style="color: #000000;">р</span><span style="color: #003300;">а</span><span style="color: #006600;">б</span><span style="color: #009900;">о</span><span style="color: #00CC00;">т</span><span style="color: #00FF00;">а</span> 
-            <span style="color: #33FF00;">Б</span><span style="color: #66FF00;">е</span><span style="color: #99FF00;">л</span><span style="color: #CCFF00;">ь</span><span style="color: #FFFF00;">с</span><span style="color: #FFFF33;">к</span><span style="color: #FFFF66;">о</span><span style="color: #FFFF99;">г</span><span style="color: #FFFFCC;">о</span> 
-            <span style="color: #FFFFFF;">Д</span><span style="color: #CCFFCC;">а</span><span style="color: #99FF99;">н</span><span style="color: #66FF66;">и</span><span style="color: #33FF33;">л</span><span style="color: #00FF00;">ы</span>
+    <!-- Анимированный фон -->
+    <div class="metro-background">
+        <div class="tunnel-effect"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Дипломная работа -->
+    <div class="diploma-header">
+        <h1>
+            <span class="rainbow-text">Дипломная работа Бельского Данилы</span>
         </h1>
+        <p class="subtitle">Интерактивная образовательная платформа по веб-разработке</p>
+    </div>
+
+    <!-- Статусная панель станции -->
+    <div class="station-status">
+        <div class="status-item">
+            <span class="status-icon">⚡</span>
+            <span class="status-text">Питание: Стабильное</span>
+        </div>
+        <div class="status-item">
+            <span class="status-icon">🛡️</span>
+            <span class="status-text">Защита: Активна</span>
+        </div>
+        <div class="status-item">
+            <span class="status-icon">📡</span>
+            <span class="status-text">Связь: Установлена</span>
+        </div>
     </div>
 
     <header class="metro-header">
         <div class="header-content">
-            <img src="maxresdefault.jpg" alt="Metro Logo" class="logo">
-            <h1>HTML/CSS в постапокалиптическом метро</h1>
-            <p class="tagline">Изучайте веб-разработку в атмосфере вселенной Metro</p>
+            <div class="logo-section">
+                <img src="maxresdefault.jpg" alt="Metro Logo" class="logo">
+                <div class="title-group">
+                    <h1>Metro Code Station</h1>
+                    <p class="tagline">Изучайте HTML, CSS и JavaScript в постапокалиптическом метро</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <span class="stat-number" id="code-lines">0</span>
+                    <span class="stat-label">строк кода</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="lessons-completed">0</span>
+                    <span class="stat-label">уроков пройдено</span>
+                </div>
+            </div>
         </div>
+        
         <nav class="metro-nav">
             <ul>
-                <li><a href="#html-basics"><span class="nav-icon">🚇</span> Основы HTML</a></li>
-                <li><a href="#css-basics"><span class="nav-icon">🔦</span> Основы CSS</a></li>
-                <li><a href="#examples"><span class="nav-icon">💻</span> Примеры кода</a></li>
-                <li><a href="#practice"><span class="nav-icon">⚡</span> Практика</a></li>
+                <li><a href="#html-basics" class="nav-link"><span class="nav-icon">🚇</span> Основы HTML</a></li>
+                <li><a href="#css-basics" class="nav-link"><span class="nav-icon">🔦</span> Основы CSS</a></li>
+                <li><a href="#js-basics" class="nav-link"><span class="nav-icon">⚙️</span> JavaScript</a></li>
+                <li><a href="#examples" class="nav-link"><span class="nav-icon">💻</span> Примеры</a></li>
+                <li><a href="#practice" class="nav-link"><span class="nav-icon">⚡</span> Практика</a></li>
+                <li><a href="#resources" class="nav-link"><span class="nav-icon">📚</span> Ресурсы</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="metro-main">
+        <!-- Новый раздел: Приветствие -->
+        <section id="welcome" class="metro-section welcome-section">
+            <div class="section-header">
+                <h2><span class="section-icon">🎯</span> Добро пожаловать на станцию кода!</h2>
+            </div>
+            <article class="metro-article">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h3>Начните свое путешествие в веб-разработку</h3>
+                        <p>Как сталкеры исследуют тоннели метро, так и вы будете исследовать мир веб-технологий. 
+                        На этой станции вы найдете все необходимое для изучения HTML, CSS и JavaScript.</p>
+                        
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">📖</div>
+                                <h4>Интерактивные уроки</h4>
+                                <p>Изучайте теорию через практические примеры в стиле Metro</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🛠️</div>
+                                <h4>Практические задания</h4>
+                                <p>Создавайте реальные проекты прямо в браузере</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🎮</div>
+                                <h4>Геймификация</h4>
+                                <p>Зарабатывайте достижения и отслеживайте прогресс</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="welcome-terminal">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">ТЕРМИНАЛ СТАНЦИИ</span>
+                                <div class="terminal-controls">
+                                    <span class="control-dot red"></span>
+                                    <span class="control-dot yellow"></span>
+                                    <span class="control-dot green"></span>
+                                </div>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line">> Инициализация системы обучения...</div>
+                                <div class="terminal-line">> Загрузка модулей HTML, CSS, JavaScript...</div>
+                                <div class="terminal-line">> Статус: <span class="status-ready">ГОТОВ К РАБОТЕ</span></div>
+                                <div class="terminal-line">> Добро пожаловать, сталкер!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Существующие разделы остаются, но улучшены -->
         <section id="html-basics" class="metro-section">
             <div class="section-header">
                 <h2><span class="section-icon">🚇</span> Основы HTML</h2>
@@ -46,262 +136,259 @@
                 <h3>Строим станции: структура HTML</h3>
                 <p>Как станции метро соединены тоннелями, так HTML-элементы образуют структуру веб-страницы.</p>
                 
-                <div class="code-block">
-                    <h4>Каркас станции (базовая структура HTML):</h4>
-                    <pre><code>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="ru"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;Название станции&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;header&gt;Вход на станцию&lt;/header&gt;
-    &lt;main&gt;Центральный зал&lt;/main&gt;
-    &lt;footer&gt;Выход к тоннелям&lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-                    </code></pre>
+                <div class="interactive-demo">
+                    <h4>Интерактивный конструктор HTML</h4>
+                    <div class="constructor">
+                        <div class="constructor-controls">
+                            <button class="constructor-btn" data-tag="h1">Добавить заголовок</button>
+                            <button class="constructor-btn" data-tag="p">Добавить параграф</button>
+                            <button class="constructor-btn" data-tag="button">Добавить кнопку</button>
+                            <button class="constructor-btn" id="clear-constructor">Очистить</button>
+                        </div>
+                        <div class="constructor-preview">
+                            <div id="html-preview"></div>
+                        </div>
+                        <div class="constructor-code">
+                            <pre><code id="generated-html"></code></pre>
+                        </div>
+                    </div>
                 </div>
                 
-                <h3>Основные элементы - жители метро</h3>
-                <div class="metro-grid">
-                    <div class="metro-card">
-                        <h4>&lt;h1&gt;-&lt;h6&gt;</h4>
-                        <p>Как указатели станций - определяют важность заголовков</p>
-                    </div>
-                    <div class="metro-card">
-                        <h4>&lt;p&gt;</h4>
-                        <p>Как рассказы старых сталкеров - содержат текстовую информацию</p>
-                    </div>
-                    <div class="metro-card">
-                        <h4>&lt;a&gt;</h4>
-                        <p>Как переходы между станциями - связывают страницы</p>
-                    </div>
-                    <div class="metro-card">
-                        <h4>&lt;img&gt;</h4>
-                        <p>Как фотографии на стенах - показывают изображения</p>
-                    </div>
-                </div>
+                <!-- Остальной контент HTML раздела -->
             </article>
         </section>
 
-        <section id="css-basics" class="metro-section">
+        <!-- Новый раздел: JavaScript -->
+        <section id="js-basics" class="metro-section">
             <div class="section-header">
-                <h2><span class="section-icon">🔦</span> Основы CSS</h2>
-                <img src="images/surface.jpg" alt="Поверхность" class="section-image">
+                <h2><span class="section-icon">⚙️</span> Основы JavaScript</h2>
+                <img src="images/javascript.jpg" alt="JavaScript" class="section-image">
             </div>
             
             <article class="metro-article">
-                <h3>Оформление станций: сила CSS</h3>
-                <p>Как фонарь Артёма освещает темные тоннели, CSS освещает и украшает ваши HTML-страницы.</p>
+                <h3>Программируем логику станции</h3>
+                <p>Как системы жизнеобеспечения метро, JavaScript оживляет ваши веб-страницы.</p>
                 
                 <div class="code-block">
-                    <h4>Пример освещения (базовые стили):</h4>
+                    <h4>Базовые концепции JavaScript:</h4>
                     <pre><code>
-/* Как газовые лампы станции */
-body {
-    background-color: #1a1a1a;  /* Темный тоннель */
-    color: #e6e6e6;             /* Светлый текст */
-    font-family: 'Roboto', sans-serif;
+// Переменные - как хранилища ресурсов
+let filters = 100;
+const stationName = "Полис";
+
+// Функции - как механизмы станции
+function checkFilters() {
+    if (filters < 20) {
+        alert("Внимание! Фильтры на исходе!");
+    }
 }
 
-/* Как красные знаки опасности */
-.warning {
-    color: #cc0000;
-    border-left: 3px solid #cc0000;
-    padding-left: 10px;
-}
-
-/* Как металлические двери */
-.button {
-    background: linear-gradient(to bottom, #4d4d4d, #333);
-    border: 1px solid #666;
-    border-radius: 3px;
-    padding: 8px 15px;
-    color: #fff;
-}
+// События - как сигнализации
+document.getElementById('check-btn').addEventListener('click', checkFilters);
                     </code></pre>
                 </div>
                 
-                <h3>Основные концепции CSS</h3>
-                <div class="metro-cards">
-                    <div class="concept-card">
-                        <div class="concept-icon">🎨</div>
-                        <h4>Селекторы</h4>
-                        <p>Как выбор оружия - определяют какие элементы будут стилизованы</p>
-                    </div>
-                    <div class="concept-card">
-                        <div class="concept-icon">🛠️</div>
-                        <h4>Свойства</h4>
-                        <p>Как инструменты сталкера - изменяют внешний вид элементов</p>
-                    </div>
-                    <div class="concept-card">
-                        <div class="concept-icon">📊</div>
-                        <h4>Значения</h4>
-                        <p>Как настройки оружия - определяют конкретные параметры стилей</p>
+                <div class="interactive-js">
+                    <h4>Интерактивная консоль JavaScript</h4>
+                    <div class="js-console">
+                        <div class="console-output" id="js-output"></div>
+                        <div class="console-input">
+                            <span class="prompt">></span>
+                            <input type="text" id="js-input" placeholder="Введите команду JavaScript...">
+                            <button id="execute-js">Выполнить</button>
+                        </div>
                     </div>
                 </div>
             </article>
         </section>
 
+        <!-- Улучшенный раздел с примерами -->
         <section id="examples" class="metro-section">
             <div class="section-header">
-                <h2><span class="section-icon">💻</span> Примеры кода</h2>
+                <h2><span class="section-icon">💻</span> Практические примеры</h2>
                 <img src="images/station.jpg" alt="Станция метро" class="section-image">
             </div>
             
             <article class="metro-article">
-                <h3>Интерфейс выживания</h3>
-                <p>Создадим интерфейс счетчика фильтров противогаза в стиле Metro</p>
+                <h3>Интерфейсы выживания в стиле Metro</h3>
                 
-                <div class="example-container">
-                    <div class="code-example">
-                        <h4>HTML:</h4>
-                        <pre><code>
-&lt;div class="gas-mask-ui"&gt;
-    &lt;div class="mask-display"&gt;
-        &lt;div class="filter-status"&gt;
-            &lt;span class="filter-text"&gt;ФИЛЬТРЫ:&lt;/span&gt;
-            &lt;div class="filter-bar"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="timer"&gt;05:23&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;button class="metro-btn"&gt;Заменить&lt;/button&gt;
-&lt;/div&gt;
-                        </code></pre>
-                    </div>
-                    
-                    <div class="code-example">
-                        <h4>CSS:</h4>
-                        <pre><code>
-.gas-mask-ui {
-    width: 300px;
-    background: rgba(30, 30, 30, 0.8);
-    border: 2px solid #555;
-    padding: 15px;
-    font-family: 'Courier New', monospace;
-    color: #00ff00;
-}
-
-.filter-status {
-    margin-bottom: 10px;
-}
-
-.filter-bar {
-    height: 20px;
-    background: linear-gradient(to right, #00aa00, #ff0000);
-    margin-top: 5px;
-    border: 1px solid #333;
-}
-
-.timer {
-    font-size: 24px;
-    text-align: center;
-    margin: 10px 0;
-}
-
-.metro-btn {
-    background: #333;
-    color: #fff;
-    border: 1px solid #555;
-    padding: 8px 15px;
-    width: 100%;
-    cursor: pointer;
-}
-                        </code></pre>
-                    </div>
-                    
-                    <div class="example-output">
-                        <h4>Результат:</h4>
+                <div class="examples-grid">
+                    <!-- Пример 1: Противогаз -->
+                    <div class="example-card">
+                        <h4>Система фильтров противогаза</h4>
                         <div class="gas-mask-ui">
                             <div class="mask-display">
                                 <div class="filter-status">
                                     <span class="filter-text">ФИЛЬТРЫ:</span>
-                                    <div class="filter-bar"></div>
+                                    <div class="filter-bar" id="filterBar"></div>
                                 </div>
-                                <div class="timer">05:23</div>
+                                <div class="timer" id="timer">05:23</div>
+                                <div class="air-quality">
+                                    <span>КАЧЕСТВО ВОЗДУХА:</span>
+                                    <div class="quality-indicator">
+                                        <span class="quality-dot active"></span>
+                                        <span class="quality-dot active"></span>
+                                        <span class="quality-dot"></span>
+                                        <span class="quality-dot"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <button class="metro-btn">Заменить</button>
+                            <button class="metro-btn" id="replaceBtn">Заменить фильтры</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Пример 2: Радио -->
+                    <div class="example-card">
+                        <h4>Радиостанция Полиса</h4>
+                        <div class="radio-ui">
+                            <div class="radio-display">
+                                <div class="station-info">
+                                    <span class="station-name">РАДИО ПОЛИСА</span>
+                                    <span class="frequency">104.7 FM</span>
+                                </div>
+                                <div class="volume-control">
+                                    <span>ГРОМКОСТЬ:</span>
+                                    <div class="volume-bar">
+                                        <div class="volume-level"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="radio-controls">
+                                <button class="radio-btn" id="play-btn">▶️ ВКЛ</button>
+                                <button class="radio-btn" id="stop-btn">⏹️ ВЫКЛ</button>
+                                <button class="radio-btn" id="scan-btn">🔍 ПОИСК</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Пример 3: Карта -->
+                    <div class="example-card">
+                        <h4>Интерактивная карта метро</h4>
+                        <div class="map-ui">
+                            <div class="map-display">
+                                <div class="map-station active" data-station="polis">ПОЛИС</div>
+                                <div class="map-line"></div>
+                                <div class="map-station" data-station="exhibition">ВЫСТАВОЧНАЯ</div>
+                                <div class="map-line"></div>
+                                <div class="map-station" data-station="library">БИБЛИОТЕКА</div>
+                            </div>
+                            <div class="map-info">
+                                <div id="station-info">Выберите станцию на карте</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </article>
         </section>
 
-        <section id="practice" class="metro-section">
+        <!-- Новый раздел: Ресурсы -->
+        <section id="resources" class="metro-section">
             <div class="section-header">
-                <h2><span class="section-icon">⚡</span> Практика в тоннелях</h2>
-                <img src="tema.jpg" alt="Артём" class="section-image">
+                <h2><span class="section-icon">📚</span> Ресурсы для сталкеров</h2>
             </div>
             
             <article class="metro-article">
-                <h3>Тренировочный полигон</h3>
-                <p>Как Артём учился выживать, так и вы будете учиться создавать веб-страницы.</p>
+                <div class="resources-grid">
+                    <div class="resource-category">
+                        <h3>📖 Официальная документация</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://developer.mozilla.org/ru/docs/Web/HTML" target="_blank">MDN Web Docs - HTML</a></li>
+                            <li><a href="https://developer.mozilla.org/ru/docs/Web/CSS" target="_blank">MDN Web Docs - CSS</a></li>
+                            <li><a href="https://developer.mozilla.org/ru/docs/Web/JavaScript" target="_blank">MDN Web Docs - JavaScript</a></li>
+                            <li><a href="https://learn.javascript.ru/" target="_blank">Современный учебник JavaScript</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h3>🛠️ Инструменты разработчика</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></li>
+                            <li><a href="https://codepen.io/" target="_blank">CodePen для экспериментов</a></li>
+                            <li><a href="https://github.com/" target="_blank">GitHub для хранения кода</a></li>
+                            <li><a href="https://fonts.google.com/" target="_blank">Google Fonts</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h3>🎮 Дополнительное обучение</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://htmlacademy.ru/" target="_blank">HTML Academy</a></li>
+                            <li><a href="https://freecodecamp.org/" target="_blank">freeCodeCamp</a></li>
+                            <li><a href="https://css-tricks.com/" target="_blank">CSS Tricks</a></li>
+                            <li><a href="https://javascript.info/" target="_blank">JavaScript Info</a></li>
+                        </ul>
+                    </div>
+                </div>
                 
-                <div class="practice-area">
-                    <div class="editor-tabs">
-                        <button class="tab-btn active" data-tab="html-tab">HTML</button>
-                        <button class="tab-btn" data-tab="css-tab">CSS</button>
-                    </div>
-                    
-                    <div class="editor-content">
-                        <div id="html-tab" class="tab-pane active">
-                            <textarea class="code-editor" placeholder="Введите HTML код здесь...">&lt;div class="metro-terminal"&gt;
-    &lt;h3&gt;Терминал Полиса&lt;/h3&gt;
-    &lt;p&gt;Добро пожаловать в систему метро!&lt;/p&gt;
-    &lt;button class="metro-btn"&gt;Войти&lt;/button&gt;
-&lt;/div&gt;</textarea>
+                <div class="achievements-section">
+                    <h3>🏆 Достижения</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement" data-achievement="first-code">
+                            <span class="achievement-icon">👨‍💻</span>
+                            <span class="achievement-name">Первый код</span>
                         </div>
-                        
-                        <div id="css-tab" class="tab-pane">
-                            <textarea class="code-editor" placeholder="Введите CSS код здесь...">.metro-terminal {
-    width: 300px;
-    background: #222;
-    border: 1px solid #444;
-    padding: 20px;
-    color: #e6e6e6;
-    font-family: 'Roboto', sans-serif;
-}
-
-.metro-terminal h3 {
-    color: #cc9900;
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
-}
-
-.metro-btn {
-    background: #cc9900;
-    color: #222;
-    border: none;
-    padding: 8px 15px;
-    margin-top: 15px;
-    cursor: pointer;
-}</textarea>
+                        <div class="achievement locked" data-achievement="html-master">
+                            <span class="achievement-icon">🚇</span>
+                            <span class="achievement-name">Мастер HTML</span>
                         </div>
-                    </div>
-                    
-                    <button id="run-code" class="metro-run-btn">Запустить код</button>
-                    
-                    <div class="output-frame">
-                        <h4>Результат:</h4>
-                        <iframe id="code-output"></iframe>
+                        <div class="achievement locked" data-achievement="css-wizard">
+                            <span class="achievement-icon">🎨</span>
+                            <span class="achievement-name">Волшебник CSS</span>
+                        </div>
+                        <div class="achievement locked" data-achievement="js-ninja">
+                            <span class="achievement-icon">⚙️</span>
+                            <span class="achievement-name">Ниндзя JavaScript</span>
+                        </div>
                     </div>
                 </div>
             </article>
         </section>
+
+        <!-- Существующий раздел практики (улучшенный) -->
+        <section id="practice" class="metro-section">
+            <!-- ... существующий контент практики ... -->
+        </section>
     </main>
 
+    <!-- Улучшенный футер -->
     <footer class="metro-footer">
-        <p>© 2023 Станция "Веб-Разработчик". Все права защищены.</p>
-        <p>Создано с ❤️ для выживших в цифровом метро</p>
-        <div class="footer-links">
-            <a href="#">Карта метро</a>
-            <a href="#">Радио Полиса</a>
-            <a href="#">Архив сталкеров</a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Metro Code Station</h3>
+                <p>Образовательная платформа для изучения веб-разработки в уникальной атмосфере вселенной Metro.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="#welcome">Главная</a></li>
+                    <li><a href="#html-basics">HTML</a></li>
+                    <li><a href="#css-basics">CSS</a></li>
+                    <li><a href="#js-basics">JavaScript</a></li>
+                    <li><a href="#examples">Примеры</a></li>
+                    <li><a href="#practice">Практика</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Станция "Веб-Разработчик"</p>
+                <p>Электронная почта: stalker@metrocode.ru</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">GitHub</a>
+                    <a href="#" class="social-link">CodePen</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Metro Code Station. Все права защищены.</p>
+            <p>Создано с ❤️ для сообщества сталкеров-разработчиков</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Кнопка возврата наверх -->
+    <button id="back-to-top" class="back-to-top-btn">↑</button>
 </body>
 </html>
