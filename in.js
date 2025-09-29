@@ -271,3 +271,219 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Добро пожаловать на станцию кода, сталкер!', 'welcome');
     }, 1000);
 });
+// РАБОЧАЯ СИСТЕМА ФИЛЬТРОВ ПРОТИВОГАЗА
+function initGasMaskSystem() {
+    console.log('🚀 Инициализация системы фильтров...');
+    
+    // Ждем немного чтобы DOM точно загрузился
+    setTimeout(() => {
+        // Находим элементы в секции examples
+        const filterBar = document.querySelector('#examples .filter-bar');
+        const replaceBtn = document.querySelector('#examples .metro-btn');
+        const timer = document.querySelector('#examples .timer');
+        
+        console.log('🔍 Поиск элементов:', { 
+            filterBar: filterBar, 
+            replaceBtn: replaceBtn, 
+            timer: timer 
+        });
+        
+        if (!filterBar || !replaceBtn || !timer) {
+            console.error('❌ Не все элементы системы фильтров найдены!');
+            console.log('Ищем в:', document.querySelector('#examples'));
+            return;
+        }
+
+        // Настройки
+        const config = {
+            maxFilter: 100,
+            minFilter: 0,
+            degradeSpeed: 0.5, // Медленнее для лучшей видимости
+            timeTotal: 5 * 60 + 23, // 5 минут 23 секунды
+            replaceTime: 1500
+        };
+        
+        let filterStatus = config.maxFilter;
+        let timeLeft = config.timeTotal;
+        let degradeInterval;
+        let isReplacing = false;
+
+        console.log('✅ Система фильтров настроена');
+
+        // Обновление дисплея
+        function updateDisplay() {
+            console.log('🔄 Обновление дисплея:', { filterStatus, timeLeft });
+            
+            // Полоса фильтров
+            filterBar.style.width = `${filterStatus}%`;
+            
+            // Цветовая индикация
+            if (filterStatus > 60) {
+                filterBar.style.background = 'linear-gradient(to right, #00ff00, #00aa00)';
+            } else if (filterStatus > 30) {
+                filterBar.style.background = 'linear-gradient(to right, #ffff00, #ff9900)';
+            } else if (filterStatus > 15) {
+                filterBar.style.background = 'linear-gradient(to right, #ff9900, #ff6600)';
+            } else {
+                filterBar.style.background = 'linear-gradient(to right, #ff0000, #cc0000)';
+            }
+            
+            // Таймер
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            // Визуальные эффекты при критическом состоянии
+            if (filterStatus < 20) {
+                timer.style.color = '#ff0000';
+                timer.style.fontWeight = 'bold';
+                timer.style.textShadow = '0 0 10px rgba(255, 0, 0, 0.7)';
+                timer.style.animation = 'pulse 1s infinite';
+            } else if (filterStatus < 40) {
+                timer.style.color = '#ff9900';
+                timer.style.fontWeight = 'bold';
+                timer.style.textShadow = '0 0 5px rgba(255, 153, 0, 0.5)';
+                timer.style.animation = 'none';
+            } else {
+                timer.style.color = '#00ff00';
+                timer.style.fontWeight = 'normal';
+                timer.style.textShadow = 'none';
+                timer.style.animation = 'none';
+            }
+        }
+
+        // Износ фильтров
+        function startDegradation() {
+            console.log('🔄 Запуск износа фильтров');
+            clearInterval(degradeInterval);
+            
+            degradeInterval = setInterval(() => {
+                if (isReplacing) {
+                    console.log('⏸️ Износ приостановлен - идет замена');
+                    return;
+                }
+                
+                // Уменьшаем фильтры и время
+                filterStatus = Math.max(config.minFilter, filterStatus - config.degradeSpeed);
+                timeLeft = Math.max(0, timeLeft - 1);
+                
+                updateDisplay();
+                
+                // Автоматическая остановка при полном износе
+                if (filterStatus <= config.minFilter) {
+                    clearInterval(degradeInterval);
+                    console.log('🛑 Фильтры полностью изношены!');
+                    replaceBtn.style.background = '#ff0000';
+                    replaceBtn.textContent = '!!! ЗАМЕНИТЬ ФИЛЬТРЫ !!!';
+                }
+                
+                // Обновляем точки качества воздуха
+                updateAirQuality();
+                
+            }, 1000); // Обновляем каждую секунду
+        }
+
+        // Обновление качества воздуха
+        function updateAirQuality() {
+            const qualityDots = document.querySelectorAll('.quality-dot');
+            const activeDots = Math.floor(filterStatus / 25); // 4 точки = 100%
+            
+            qualityDots.forEach((dot, index) => {
+                if (index < activeDots) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Замена фильтров
+        function replaceFilters() {
+            if (isReplacing) {
+                console.log('⚠️ Замена уже идет...');
+                return;
+            }
+            
+            console.log('🔄 Начало замены фильтров...');
+            isReplacing = true;
+            replaceBtn.disabled = true;
+            const originalText = replaceBtn.textContent;
+            
+            // Визуальная обратная связь
+            replaceBtn.textContent = '🔄 ЗАМЕНА...';
+            replaceBtn.style.background = '#555';
+            
+            // Останавливаем износ
+            clearInterval(degradeInterval);
+            
+            // Анимация замены
+            let replaceProgress = filterStatus;
+            const totalIncrease = config.maxFilter - filterStatus;
+            const steps = 20;
+            const stepSize = totalIncrease / steps;
+            
+            console.log(`🎯 Замена: с ${filterStatus}% до 100% (шаг: ${stepSize})`);
+            
+            const replaceAnimation = setInterval(() => {
+                replaceProgress += stepSize;
+                filterStatus = Math.min(config.maxFilter, replaceProgress);
+                
+                updateDisplay();
+                
+                if (filterStatus >= config.maxFilter) {
+                    clearInterval(replaceAnimation);
+                    console.log('✅ Замена завершена');
+                    
+                    // Завершение замены
+                    timeLeft = config.timeTotal;
+                    filterStatus = config.maxFilter;
+                    
+                    setTimeout(() => {
+                        replaceBtn.textContent = originalText;
+                        replaceBtn.disabled = false;
+                        replaceBtn.style.background = '';
+                        isReplacing = false;
+                        
+                        // Перезапускаем износ
+                        startDegradation();
+                        console.log('🚀 Износ перезапущен');
+                        
+                    }, 500);
+                }
+            }, 50); // Быстрая анимация
+        }
+
+        // Назначаем обработчик клика
+        replaceBtn.addEventListener('click', replaceFilters);
+        console.log('✅ Обработчик кнопки назначен');
+        
+        // Добавляем стили для плавности
+        filterBar.style.transition = 'width 0.5s ease, background 0.5s ease';
+        filterBar.style.width = '100%'; // Начальное значение
+        
+        // Добавляем CSS анимацию для пульсации
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+            .quality-dot {
+                transition: background 0.3s ease;
+            }
+            .quality-dot.active {
+                background: #00ff00 !important;
+                box-shadow: 0 0 8px #00ff00;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Инициализация
+        updateDisplay();
+        startDegradation();
+        
+        console.log('🎉 Система фильтров инициализирована успешно!');
+        
+    }, 500); // Задержка для полной загрузки DOM
+}
