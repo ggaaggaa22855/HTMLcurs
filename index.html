@@ -3,393 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metro Code Station - Изучение веб-разработки</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Интерактивное обучение веб-разработке</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3a1;
+            --light-color: #f5f7fa;
+            --dark-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-example {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+        }
+        
+        .interactive-editor {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        
+        .editor-header {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .editor-content {
+            display: flex;
+            height: 300px;
+        }
+        
+        .code-input {
+            flex: 1;
+            border: none;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            resize: none;
+            outline: none;
+            background-color: #f8f8f8;
+        }
+        
+        .code-output {
+            flex: 1;
+            border-left: 1px solid #ddd;
+            padding: 1rem;
+            overflow: auto;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #3da98a;
+        }
+        
+        .quiz-container {
+            margin: 2rem 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .quiz-options {
+            margin-top: 1rem;
+        }
+        
+        .quiz-option {
+            display: block;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .quiz-option input {
+            margin-right: 0.5rem;
+        }
+        
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .result.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.5rem 0;
+            }
+            
+            .editor-content {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .code-output {
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
-    <div class="metro-background">
-        <div class="tunnel-effect"></div>
-        <div class="particles"></div>
-    </div>
-
-    <!-- Дипломная работа -->
-    <div class="diploma-header">
-        <h1>
-            <span class="rainbow-text">Дипломная работа Бельского Данилы</span>
-        </h1>
-        <p class="subtitle">Интерактивная образовательная платформа по веб-разработке</p>
-    </div>
-
-    <!-- Статусная панель станции -->
-    <div class="station-status">
-        <div class="status-item">
-            <span class="status-icon">⚡</span>
-            <span class="status-text">Питание: Стабильное</span>
-        </div>
-        <div class="status-item">
-            <span class="status-icon">🛡️</span>
-            <span class="status-text">Защита: Активна</span>
-        </div>
-        <div class="status-item">
-            <span class="status-icon">📡</span>
-            <span class="status-text">Связь: Установлена</span>
-        </div>
-    </div>
-
-    <header class="metro-header">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="maxresdefault.jpg" alt="Metro Logo" class="logo">
-                <div class="title-group">
-                    <h1>Metro Code Station</h1>
-                    <p class="tagline">Изучайте HTML, CSS и JavaScript в постапокалиптическом метро</p>
-                </div>
-            </div>
-            <div class="header-stats">
-                <div class="stat">
-                    <span class="stat-number" id="code-lines">0</span>
-                    <span class="stat-label">строк кода</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="lessons-completed">0</span>
-                    <span class="stat-label">уроков пройдено</span>
-                </div>
-            </div>
-        </div>
-        
-        <nav class="metro-nav">
-            <ul>
-                <li><a href="#html-basics" class="nav-link"><span class="nav-icon">🚇</span> Основы HTML</a></li>
-                <li><a href="#css-basics" class="nav-link"><span class="nav-icon">🔦</span> Основы CSS</a></li>
-                <li><a href="#js-basics" class="nav-link"><span class="nav-icon">⚙️</span> JavaScript</a></li>
-                <li><a href="#examples" class="nav-link"><span class="nav-icon">💻</span> Примеры</a></li>
-                <li><a href="#practice" class="nav-link"><span class="nav-icon">⚡</span> Практика</a></li>
-                <li><a href="#resources" class="nav-link"><span class="nav-icon">📚</span> Ресурсы</a></li>
-            </ul>
-        </nav>
+    <header>
+        <h1>Интерактивное обучение веб-разработке</h1>
+        <p>Изучайте HTML, CSS и JavaScript на практике</p>
     </header>
-
-    <main class="metro-main">
-        <!-- Новый раздел: Приветствие -->
-        <section id="welcome" class="metro-section welcome-section">
-            <div class="section-header">
-                <h2><span class="section-icon">🎯</span> Добро пожаловать на станцию кода!</h2>
-            </div>
-            <article class="metro-article">
-                <div class="welcome-content">
-                    <div class="welcome-text">
-                        <h3>Начните свое путешествие в веб-разработку</h3>
-                        <p>Как сталкеры исследуют тоннели метро, так и вы будете исследовать мир веб-технологий. 
-                        На этой станции вы найдете все необходимое для изучения HTML, CSS и JavaScript.</p>
-                        
-                        <div class="features-grid">
-                            <div class="feature-card">
-                                <div class="feature-icon">📖</div>
-                                <h4>Интерактивные уроки</h4>
-                                <p>Изучайте теорию через практические примеры в стиле Metro</p>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🛠️</div>
-                                <h4>Практические задания</h4>
-                                <p>Создавайте реальные проекты прямо в браузере</p>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🎮</div>
-                                <h4>Геймификация</h4>
-                                <p>Зарабатывайте достижения и отслеживайте прогресс</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="welcome-terminal">
-                        <div class="terminal">
-                            <div class="terminal-header">
-                                <span class="terminal-title">ТЕРМИНАЛ СТАНЦИИ</span>
-                                <div class="terminal-controls">
-                                    <span class="control-dot red"></span>
-                                    <span class="control-dot yellow"></span>
-                                    <span class="control-dot green"></span>
-                                </div>
-                            </div>
-                            <div class="terminal-content">
-                                <div class="terminal-line">> Инициализация системы обучения...</div>
-                                <div class="terminal-line">> Загрузка модулей HTML, CSS, JavaScript...</div>
-                                <div class="terminal-line">> Статус: <span class="status-ready">ГОТОВ К РАБОТЕ</span></div>
-                                <div class="terminal-line">> Добро пожаловать, сталкер!</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- Существующие разделы остаются, но улучшены -->
-        <section id="html-basics" class="metro-section">
-            <div class="section-header">
-                <h2><span class="section-icon">🚇</span> Основы HTML</h2>
-                <img src="1551722065_poster-19-03-04 22-52-53.jpg" alt="Тоннель метро" class="section-image">
+    
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link active" data-target="html-section">HTML</a></li>
+            <li><a href="#" class="nav-link" data-target="css-section">CSS</a></li>
+            <li><a href="#" class="nav-link" data-target="js-section">JavaScript</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- HTML Section -->
+        <section id="html-section" class="section active">
+            <h2>Основы HTML</h2>
+            <p>HTML (HyperText Markup Language) - это стандартный язык разметки для создания веб-страниц.</p>
+            
+            <div class="code-example">
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;Моя первая страница&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>
+                &nbsp;&nbsp;&lt;h1&gt;Привет, мир!&lt;/h1&gt;<br>
+                &nbsp;&nbsp;&lt;p&gt;Это моя первая веб-страница.&lt;/p&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;
             </div>
             
-            <article class="metro-article">
-                <h3>Строим станции: структура HTML</h3>
-                <p>Как станции метро соединены тоннелями, так HTML-элементы образуют структуру веб-страницы.</p>
-                
-                <div class="interactive-demo">
-                    <h4>Интерактивный конструктор HTML</h4>
-                    <div class="constructor">
-                        <div class="constructor-controls">
-                            <button class="constructor-btn" data-tag="h1">Добавить заголовок</button>
-                            <button class="constructor-btn" data-tag="p">Добавить параграф</button>
-                            <button class="constructor-btn" data-tag="button">Добавить кнопку</button>
-                            <button class="constructor-btn" id="clear-constructor">Очистить</button>
-                        </div>
-                        <div class="constructor-preview">
-                            <div id="html-preview"></div>
-                        </div>
-                        <div class="constructor-code">
-                            <pre><code id="generated-html"></code></pre>
-                        </div>
-                    </div>
+            <h3>Практика HTML</h3>
+            <div class="interactive-editor">
+                <div class="editor-header">
+                    <span>HTML редактор</span>
+                    <button id="run-html">Запустить код</button>
                 </div>
-                
-                <!-- Остальной контент HTML раздела -->
-            </article>
-        </section>
-
-        <!-- Новый раздел: JavaScript -->
-        <section id="js-basics" class="metro-section">
-            <div class="section-header">
-                <h2><span class="section-icon">⚙️</span> Основы JavaScript</h2>
-                <img src="images/javascript.jpg" alt="JavaScript" class="section-image">
+                <div class="editor-content">
+                    <textarea class="code-input" id="html-code">&lt;h1&gt;Заголовок&lt;/h1&gt;
+&lt;p&gt;Это абзац текста.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Первый пункт&lt;/li&gt;
+  &lt;li&gt;Второй пункт&lt;/li&gt;
+&lt;/ul&gt;</textarea>
+                    <div class="code-output" id="html-output"></div>
+                </div>
             </div>
             
-            <article class="metro-article">
-                <h3>Программируем логику станции</h3>
-                <p>Как системы жизнеобеспечения метро, JavaScript оживляет ваши веб-страницы.</p>
-                
-                <div class="code-block">
-                    <h4>Базовые концепции JavaScript:</h4>
-                    <pre><code>
-// Переменные - как хранилища ресурсов
-let filters = 100;
-const stationName = "Полис";
-
-// Функции - как механизмы станции
-function checkFilters() {
-    if (filters < 20) {
-        alert("Внимание! Фильтры на исходе!");
-    }
+            <div class="quiz-container">
+                <h3>Проверьте свои знания</h3>
+                <div class="quiz-question">
+                    <p>Какой тег используется для создания заголовка первого уровня?</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="html-question1" value="a"> &lt;header&gt;
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="html-question1" value="b"> &lt;h1&gt;
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="html-question1" value="c"> &lt;title&gt;
+                        </label>
+                    </div>
+                    <button class="check-answer" data-question="html-question1" data-correct="b">Проверить ответ</button>
+                    <div class="result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CSS Section -->
+        <section id="css-section" class="section">
+            <h2>Основы CSS</h2>
+            <p>CSS (Cascading Style Sheets) - это язык стилей, используемый для описания внешнего вида документа, написанного на HTML.</p>
+            
+            <div class="code-example">
+                body {<br>
+                &nbsp;&nbsp;font-family: Arial, sans-serif;<br>
+                &nbsp;&nbsp;background-color: #f0f0f0;<br>
+                }<br>
+                <br>
+                h1 {<br>
+                &nbsp;&nbsp;color: blue;<br>
+                &nbsp;&nbsp;text-align: center;<br>
+                }<br>
+                <br>
+                .container {<br>
+                &nbsp;&nbsp;width: 80%;<br>
+                &nbsp;&nbsp;margin: 0 auto;<br>
+                }
+            </div>
+            
+            <h3>Практика CSS</h3>
+            <div class="interactive-editor">
+                <div class="editor-header">
+                    <span>CSS редактор</span>
+                    <button id="run-css">Применить стили</button>
+                </div>
+                <div class="editor-content">
+                    <textarea class="code-input" id="css-code">h1 {
+  color: darkblue;
+  text-align: center;
 }
 
-// События - как сигнализации
-document.getElementById('check-btn').addEventListener('click', checkFilters);
-                    </code></pre>
-                </div>
-                
-                <div class="interactive-js">
-                    <h4>Интерактивная консоль JavaScript</h4>
-                    <div class="js-console">
-                        <div class="console-output" id="js-output"></div>
-                        <div class="console-input">
-                            <span class="prompt">></span>
-                            <input type="text" id="js-input" placeholder="Введите команду JavaScript...">
-                            <button id="execute-js">Выполнить</button>
-                        </div>
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.box {
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+  margin: 20px auto;
+  border-radius: 8px;
+}</textarea>
+                    <div class="code-output" id="css-output">
+                        <h1>Заголовок с CSS</h1>
+                        <p>Это абзац текста со стилями.</p>
+                        <div class="box"></div>
                     </div>
                 </div>
-            </article>
-        </section>
-
-        <!-- Улучшенный раздел с примерами -->
-        <section id="examples" class="metro-section">
-            <div class="section-header">
-                <h2><span class="section-icon">💻</span> Практические примеры</h2>
-                <img src="images/station.jpg" alt="Станция метро" class="section-image">
             </div>
             
-            <article class="metro-article">
-                <h3>Интерфейсы выживания в стиле Metro</h3>
-                
-                <div class="examples-grid">
-                    <!-- Пример 1: Противогаз -->
-                    <div class="example-card">
-                        <h4>Система фильтров противогаза</h4>
-                        <div class="gas-mask-ui">
-                            <div class="mask-display">
-                                <div class="filter-status">
-                                    <span class="filter-text">ФИЛЬТРЫ:</span>
-                                    <div class="filter-bar" id="filterBar"></div>
-                                </div>
-                                <div class="timer" id="timer">05:23</div>
-                                <div class="air-quality">
-                                    <span>КАЧЕСТВО ВОЗДУХА:</span>
-                                    <div class="quality-indicator">
-                                        <span class="quality-dot active"></span>
-                                        <span class="quality-dot active"></span>
-                                        <span class="quality-dot"></span>
-                                        <span class="quality-dot"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="metro-btn" id="replaceBtn">Заменить фильтры</button>
-                        </div>
+            <div class="quiz-container">
+                <h3>Проверьте свои знания</h3>
+                <div class="quiz-question">
+                    <p>Какое свойство CSS используется для изменения цвета текста?</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="css-question1" value="a"> text-color
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="css-question1" value="b"> font-color
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="css-question1" value="c"> color
+                        </label>
                     </div>
-                    
-                    <!-- Пример 2: Радио -->
-                    <div class="example-card">
-                        <h4>Радиостанция Полиса</h4>
-                        <div class="radio-ui">
-                            <div class="radio-display">
-                                <div class="station-info">
-                                    <span class="station-name">РАДИО ПОЛИСА</span>
-                                    <span class="frequency">104.7 FM</span>
-                                </div>
-                                <div class="volume-control">
-                                    <span>ГРОМКОСТЬ:</span>
-                                    <div class="volume-bar">
-                                        <div class="volume-level"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio-controls">
-                                <button class="radio-btn" id="play-btn">▶️ ВКЛ</button>
-                                <button class="radio-btn" id="stop-btn">⏹️ ВЫКЛ</button>
-                                <button class="radio-btn" id="scan-btn">🔍 ПОИСК</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Пример 3: Карта -->
-                    <div class="example-card">
-                        <h4>Интерактивная карта метро</h4>
-                        <div class="map-ui">
-                            <div class="map-display">
-                                <div class="map-station active" data-station="polis">ПОЛИС</div>
-                                <div class="map-line"></div>
-                                <div class="map-station" data-station="exhibition">ВЫСТАВОЧНАЯ</div>
-                                <div class="map-line"></div>
-                                <div class="map-station" data-station="library">БИБЛИОТЕКА</div>
-                            </div>
-                            <div class="map-info">
-                                <div id="station-info">Выберите станцию на карте</div>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="check-answer" data-question="css-question1" data-correct="c">Проверить ответ</button>
+                    <div class="result"></div>
                 </div>
-            </article>
+            </div>
         </section>
-
-        <!-- Новый раздел: Ресурсы -->
-        <section id="resources" class="metro-section">
-            <div class="section-header">
-                <h2><span class="section-icon">📚</span> Ресурсы для сталкеров</h2>
-            </div>
-            
-            <article class="metro-article">
-                <div class="resources-grid">
-                    <div class="resource-category">
-                        <h3>📖 Официальная документация</h3>
-                        <ul class="resource-list">
-                            <li><a href="https://developer.mozilla.org/ru/docs/Web/HTML" target="_blank">MDN Web Docs - HTML</a></li>
-                            <li><a href="https://developer.mozilla.org/ru/docs/Web/CSS" target="_blank">MDN Web Docs - CSS</a></li>
-                            <li><a href="https://developer.mozilla.org/ru/docs/Web/JavaScript" target="_blank">MDN Web Docs - JavaScript</a></li>
-                            <li><a href="https://learn.javascript.ru/" target="_blank">Современный учебник JavaScript</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="resource-category">
-                        <h3>🛠️ Инструменты разработчика</h3>
-                        <ul class="resource-list">
-                            <li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></li>
-                            <li><a href="https://codepen.io/" target="_blank">CodePen для экспериментов</a></li>
-                            <li><a href="https://github.com/" target="_blank">GitHub для хранения кода</a></li>
-                            <li><a href="https://fonts.google.com/" target="_blank">Google Fonts</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="resource-category">
-                        <h3>🎮 Дополнительное обучение</h3>
-                        <ul class="resource-list">
-                            <li><a href="https://htmlacademy.ru/" target="_blank">HTML Academy</a></li>
-                            <li><a href="https://freecodecamp.org/" target="_blank">freeCodeCamp</a></li>
-                            <li><a href="https://css-tricks.com/" target="_blank">CSS Tricks</a></li>
-                            <li><a href="https://javascript.info/" target="_blank">JavaScript Info</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="achievements-section">
-                    <h3>🏆 Достижения</h3>
-                    <div class="achievements-grid">
-                        <div class="achievement" data-achievement="first-code">
-                            <span class="achievement-icon">👨‍💻</span>
-                            <span class="achievement-name">Первый код</span>
-                        </div>
-                        <div class="achievement locked" data-achievement="html-master">
-                            <span class="achievement-icon">🚇</span>
-                            <span class="achievement-name">Мастер HTML</span>
-                        </div>
-                        <div class="achievement locked" data-achievement="css-wizard">
-                            <span class="achievement-icon">🎨</span>
-                            <span class="achievement-name">Волшебник CSS</span>
-                        </div>
-                        <div class="achievement locked" data-achievement="js-ninja">
-                            <span class="achievement-icon">⚙️</span>
-                            <span class="achievement-name">Ниндзя JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- Существующий раздел практики (улучшенный) -->
-        <section id="practice" class="metro-section">
-            <!-- ... существующий контент практики ... -->
-        </section>
-    </main>
-
-    <!-- Улучшенный футер -->
-    <footer class="metro-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Metro Code Station</h3>
-                <p>Образовательная платформа для изучения веб-разработки в уникальной атмосфере вселенной Metro.</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Навигация</h3>
-                <ul class="footer-links">
-                    <li><a href="#welcome">Главная</a></li>
-                    <li><a href="#html-basics">HTML</a></li>
-                    <li><a href="#css-basics">CSS</a></li>
-                    <li><a href="#js-basics">JavaScript</a></li>
-                    <li><a href="#examples">Примеры</a></li>
-                    <li><a href="#practice">Практика</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <p>Станция "Веб-Разработчик"</p>
-                <p>Электронная почта: stalker@metrocode.ru</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">GitHub</a>
-                    <a href="#" class="social-link">CodePen</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                </div>
-            </div>
-        </div>
         
-        <div class="footer-bottom">
-            <p>&copy; 2024 Metro Code Station. Все права защищены.</p>
-            <p>Создано с ❤️ для сообщества сталкеров-разработчиков</p>
-        </div>
-    </footer>
+        <!-- JavaScript Section -->
+        <section id="js-section" class="section">
+            <h2>Основы JavaScript</h2>
+            <p>JavaScript - это язык программирования, который позволяет создавать динамически обновляемый контент на веб-страницах.</p>
+            
+            <div class="code-example">
+                // Переменные<br>
+                let name = "Иван";<br>
+                const age = 25;<br>
+                <br>
+                // Функции<br>
+                function greet(person) {<br>
+                &nbsp;&nbsp;return "Привет, " + person + "!";<br>
+                }<br>
+                <br>
+                // Вызов функции<br>
+                console.log(greet(name));<br>
+                <br>
+                // Работа с DOM<br>
+                document.getElementById("demo").innerHTML = "Текст изменен!";
+            </div>
+            
+            <h3>Практика JavaScript</h3>
+            <div class="interactive-editor">
+                <div class="editor-header">
+                    <span>JavaScript редактор</span>
+                    <button id="run-js">Выполнить код</button>
+                </div>
+                <div class="editor-content">
+                    <textarea class="code-input" id="js-code">// Измените текст кнопки
+const button = document.querySelector('#js-output button');
+button.textContent = 'Текст изменен!';
 
-    <!-- Кнопка возврата наверх -->
-    <button id="back-to-top" class="back-to-top-btn">↑</button>
+// Добавьте обработчик события
+button.addEventListener('click', function() {
+  alert('Кнопка была нажата!');
+});
+
+// Создайте новый элемент
+const newElement = document.createElement('p');
+newElement.textContent = 'Этот элемент создан с помощью JavaScript!';
+document.getElementById('js-output').appendChild(newElement);</textarea>
+                    <div class="code-output" id="js-output">
+                        <button>Нажми меня</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Проверьте свои знания</h3>
+                <div class="quiz-question">
+                    <p>Какой метод используется для вывода данных в консоль браузера?</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="js-question1" value="a"> print()
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="js-question1" value="b"> console.log()
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="js-question1" value="c"> display()
+                        </label>
+                    </div>
+                    <button class="check-answer" data-question="js-question1" data-correct="b">Проверить ответ</button>
+                    <div class="result"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Интерактивный сайт для обучения веб-разработке &copy; 2023</p>
+    </footer>
+    
+    <script>
+        // Навигация между разделами
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Убираем активный класс у всех ссылок
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Добавляем активный класс к текущей ссылке
+                this.classList.add('active');
+                
+                // Скрываем все разделы
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Показываем выбранный раздел
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        
+        // HTML редактор
+        document.getElementById('run-html').addEventListener('click', function() {
+            const htmlCode = document.getElementById('html-code').value;
+            document.getElementById('html-output').innerHTML = htmlCode;
+        });
+        
+        // CSS редактор
+        document.getElementById('run-css').addEventListener('click', function() {
+            const cssCode = document.getElementById('css-code').value;
+            const styleElement = document.createElement('style');
+            styleElement.textContent = cssCode;
+            
+            // Удаляем предыдущие стили
+            const existingStyle = document.getElementById('dynamic-css');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            
+            styleElement.id = 'dynamic-css';
+            document.head.appendChild(styleElement);
+        });
+        
+        // JavaScript редактор
+        document.getElementById('run-js').addEventListener('click', function() {
+            const jsCode = document.getElementById('js-code').value;
+            try {
+                // Очищаем вывод перед выполнением нового кода
+                const outputElement = document.getElementById('js-output');
+                outputElement.innerHTML = '<button>Нажми меня</button>';
+                
+                // Выполняем код
+                eval(jsCode);
+            } catch (error) {
+                console.error('Ошибка выполнения JavaScript:', error);
+                alert('Ошибка в коде: ' + error.message);
+            }
+        });
+        
+        // Проверка ответов в викторине
+        document.querySelectorAll('.check-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const questionName = this.getAttribute('data-question');
+                const correctAnswer = this.getAttribute('data-correct');
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                const resultElement = this.nextElementSibling;
+                
+                if (!selectedOption) {
+                    alert('Пожалуйста, выберите ответ');
+                    return;
+                }
+                
+                if (selectedOption.value === correctAnswer) {
+                    resultElement.textContent = 'Правильно!';
+                    resultElement.className = 'result correct';
+                } else {
+                    resultElement.textContent = 'Неправильно. Попробуйте еще раз.';
+                    resultElement.className = 'result incorrect';
+                }
+                
+                resultElement.style.display = 'block';
+            });
+        });
+        
+        // Инициализация HTML редактора при загрузке
+        document.getElementById('run-html').click();
+    </script>
 </body>
 </html>
